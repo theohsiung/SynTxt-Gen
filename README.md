@@ -3,7 +3,11 @@ synthetic data generation for text with 3d information
 
 ## folders
 `txt_test` modify this to txt folder by mostel
+
+
 `fonts` 70 fonts included
+
+
 `Gen.py` run this for data generation
 
 ## arguments for Gen.py
