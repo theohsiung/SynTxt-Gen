@@ -19,26 +19,40 @@ synthetic data generation for text with 3d information
 ## Output Data structure
 ```
 SynTxt-Gen/SynTxt3D_50k_1
-├── i_s  # src img with different text color and bkg
+├── i_s
 |    ├── 00000.png
 |    ├── 00001.png
 |    └── ......
-├── mask_3d_s # src img mask with normal vector
+├── mask_3d_s
 |    ├── 00000.png
 |    ├── 00001.png
 |    └── ......
-├── mask_3d_t # tgt img mask with normal vector
-├── mask_s # black&white src img mask
+├── mask_3d_t
+├── mask_s
 |    ├── 00000.png
 |    ├── 00001.png
 |    └── ......
-├── mask_t # black&white tgt img mask
-├── t_b # bkg img without text
+├── mask_t
+├── t_b
 |    ├── 00000.png
 |    ├── 00001.png
 |    └── ......
-└── t_f # tgt img (Ground Truth)
+└── t_f 
      ├── 00000.png
      ├── 00001.png
      └── ......
 ```
+
+- i_s: styled text a (src) rendering on background image
+
+- mask_3d_s: the mask with normal vector of styled text a (src)
+
+- mask_3d_t: the mask with normal vector of styled text b (tgt)
+
+- mask_s: the binary mask of styled text a (src)
+
+- mask_t: the binary mask of styled text b (tgt)
+
+- t_b: background image w/o any txt rendering
+
+- t_f: styled text b (tgt) rendering on background image
