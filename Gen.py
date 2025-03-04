@@ -2,6 +2,7 @@ import os
 import json
 import cv2
 import random
+import time
 import numpy as np
 from collections import defaultdict, Counter
 from wand.image import Image
@@ -25,7 +26,7 @@ def chunk_list(lst, chunk_size):
 def create_text_images(texts, font_path, max_width=800, fixed_height=150):
     """创建相同尺寸的单行文字图像，确保两张图片独立，且大小一致"""
     font_size = 80  # 初始字體大小
-
+    time.sleep(0.05)
     # 計算最大文字寬度，確保兩張圖片統一
     max_text_width = 0
     for text in texts:
@@ -45,6 +46,8 @@ def create_text_images(texts, font_path, max_width=800, fixed_height=150):
     for text in texts:
         with Image(width=max_text_width, height=fixed_height, background=Color('black')) as img:
             with Drawing() as draw:
+                draw.clear()
+                time.sleep(0.05)
                 draw.font = font_path
                 draw.font_size = font_size
                 draw.text_alignment = 'center'
@@ -116,7 +119,7 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img",FONT_DIR="./fon
     }
 
     texts = os.listdir(TEXT_DIR)
-    total_images = len(texts) 
+    # total_images = len(texts) 
     fonts = get_font_paths(FONT_DIR)
     font_groups = list(chunk_list(fonts, 2))
 
@@ -148,9 +151,9 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img",FONT_DIR="./fon
                 mask_s.save(filename=temp_s_path)
                 mask_t.save(filename=temp_t_path)
         # ----------------------- check font -----------------------
-        #         s = cv2.imread(temp_s_path)
-        #         if np.all(s == 0):
-        #             print(f"⚠️ 字體 {font} 產生的 mask_s 是全黑的")
+                s = cv2.imread(temp_s_path)
+                if np.all(s == 0):
+                    print(f"⚠️ 字體 {font} 產生的 mask_s 是全黑的")
         #             count += 1
         #         t = cv2.imread(temp_t_path)
         #         if np.all(t == 0):
@@ -165,6 +168,11 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img",FONT_DIR="./fon
                         index += 1
                         if num_axes == 1:
                             angles = {axes: random.choice(angle_options)}
+                        # ----------------------- check normal vector -----------------------
+                        #     angles = {'gamma':0, 'phi':0, 'theta':0}
+                        # else:
+                        #     continue
+                        # ----------------------- check normal vector -----------------------
                         elif num_axes == 2:
                             angles = {axes[0]: random.choice(angle_options), axes[1]: random.choice(angle_options)}
                         elif num_axes == 3:
@@ -177,12 +185,14 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img",FONT_DIR="./fon
                         rgb = PYR_2_RGB(angles.get("theta", 0), angles.get("phi", 0), angles.get("gamma", 0))
                         r_src_3d_mask = r_src_mask
                         r_tgt_3d_mask = r_tgt_mask
-                        cv2.imwrite(f'./SynTxt3D_50k/mask_s/{file_name}_{index}.png', r_src_mask)
-                        cv2.imwrite(f'./SynTxt3D_50k/mask_t/{file_name}_{index}.png', r_tgt_mask)
+                        cv2.imwrite(f'./{DATA_DIR}/mask_s/{file_name}_{index}.png', r_src_mask)
+                        cv2.imwrite(f'./{DATA_DIR}/mask_t/{file_name}_{index}.png', r_tgt_mask)
+                        # rgb = rgb.astype(np.int16) # for phi, theta, gamma alignment
+                        # rgb[1] = rgb[1] * (-1)
                         replace_white_with_color(r_src_3d_mask, rgb)
                         replace_white_with_color(r_tgt_3d_mask, rgb)
-                        cv2.imwrite(f'./SynTxt3D_50k/mask_3d_s/{file_name}_{index}.png', r_src_3d_mask)
-                        cv2.imwrite(f'./SynTxt3D_50k/mask_3d_t/{file_name}_{index}.png', r_tgt_3d_mask)
+                        cv2.imwrite(f'./{DATA_DIR}/mask_3d_s/{file_name}_{index}.png', r_src_3d_mask)
+                        cv2.imwrite(f'./{DATA_DIR}/mask_3d_t/{file_name}_{index}.png', r_tgt_3d_mask)
                 os.remove(temp_s_path)
                 os.remove(temp_t_path)
         os.rmdir(TEMP_DIR)
