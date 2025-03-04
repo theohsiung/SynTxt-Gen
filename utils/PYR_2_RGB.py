@@ -20,10 +20,10 @@ def normal_vector(theta: float, phi: float, gamma: float) -> np.array:
     輸入角度單位為度。
     """
     theta = np.deg2rad(theta)
-    phi = np.deg2rad(phi)
+    phi = np.deg2rad(phi-70)
     gamma = np.deg2rad(gamma)
     x = np.cos(theta) * np.cos(phi)
-    y = -np.sin(theta)
+    y = np.sin(theta)
     z = np.cos(theta) * np.sin(phi)
     return np.array([x, y, z])
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     # 這裡測試使用 pitch=0, yaw=0, roll=0 得到的 RGB 顏色，
     # 然後對這個 RGB 顏色進行旋轉 60 度（逆時針），
     # 並將結果顯示在一張圖片上。
-    theta = -90
+    theta = 90
     phi = 0
     gamma = 0
     rgb_color = PYR_2_RGB(theta, phi, gamma)
@@ -87,9 +87,9 @@ if __name__ == "__main__":
     # 產生一張 100x100 的圖片，填滿旋轉後的顏色
     img = np.zeros((100, 100, 3), dtype=np.uint8)
     img[:, :] = rotated_color
-    # cv2.imwrite("rotated_color.png", img)
+    cv2.imwrite("rotated_color.png", img)
     # print("Original RGB:", rgb_color)
-    # print("Rotated RGB:", rotated_color)
+    print("Rotated RGB:", rotated_color)
 
     # 進一步畫一個球體，讓每個像素根據其法向量轉換後的顏色經過旋轉處理
     size = 200
@@ -101,7 +101,7 @@ if __name__ == "__main__":
         for j in range(size):
             # 將像素映射到 [-1, 1]
             X = (j - center) / radius
-            Y = (i - center) / radius
+            Y = -(i - center) / radius
             if X * X + Y * Y <= 1.0:
                 z = math.sqrt(1.0 - X*X - Y*Y)
                 # 使用原本的方法計算 pitch 與 yaw
@@ -115,5 +115,5 @@ if __name__ == "__main__":
                 rotated_val = rotate_rgb(rgb_val, angle_deg=0)
                 sphere_img[i, j] = rotated_val
 
-    # cv2.imwrite("sphere.png", sphere_img)
-    # print("已生成旋轉後球體顏色圖： sphere.png")
+    cv2.imwrite("sphere.png", sphere_img)
+    print("已生成旋轉後球體顏色圖： sphere.png")
