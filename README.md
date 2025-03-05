@@ -25,29 +25,37 @@ unzip datasets/bg_data.zip -d datasets/     # remember to add datasets/bg_data t
 | `--data_dir` | Data folder name | SynTxt3D_50K_1 |
 
 ## Output Data structure
+The output data should be as follow. Be aware that we augmented the synthetic dataset by Mostel, thus for every pair in train-50k we generate 80 different conditions (20 3D arrangment, 2 fonts, as, 2 arc arrangment), thus the output data would be 00000_1.png, 00000_2.png, 00000_80.png.
+
+`note:`Mostel Dataset can be downloaded [here](https://rec.ustc.edu.cn/share/81ddc320-b05b-11ed-b4bc-5f690f426d88) (password: t6bq)
 ```
 SynTxt-Gen/SynTxt3D_50k_1
 ├── i_s
-|    ├── 00000.png
-|    ├── 00001.png
+|    ├── 00000_1.png
+|    ├── ......
+|    ├── 00000_80.png
+|    ├── ......
+|    ├── 39999_1.png
+|    ├── ......
+|    ├── 39999_80.png
 |    └── ......
 ├── mask_3d_s
-|    ├── 00000.png
-|    ├── 00001.png
+|    ├── 00000_1.png
+|    ├── 00000_2.png
 |    └── ......
 ├── mask_3d_t
 ├── mask_s
-|    ├── 00000.png
-|    ├── 00001.png
+|    ├── 00000_1.png
+|    ├── 00000_2.png
 |    └── ......
 ├── mask_t
 ├── t_b
-|    ├── 00000.png
-|    ├── 00001.png
+|    ├── 00000_1.png
+|    ├── 00000_2.png
 |    └── ......
 └── t_f 
-     ├── 00000.png
-     ├── 00001.png
+     ├── 00000_1.png
+     ├── 00000_2.png
      └── ......
 ```
 
