@@ -25,7 +25,7 @@ unzip datasets/bg_data.zip -d datasets/     # remember to add datasets/bg_data t
 | `--data_dir` | Data folder name | SynTxt3D_50K_1 |
 
 ## Output Data structure
-The output data should be as follow. Be aware that we augmented the synthetic dataset by Mostel, thus for every pair in train-50k we generate 80 different conditions (20x3D arrangment, 2xfonts, 2xarc arrangment), thus the output data would be 00000_1.png, 00000_2.png, 00000_80.png.
+The output data should be as follow. Be aware that we augmented the synthetic dataset by Mostel, thus for every pair in train-50k we generate 80 different conditions (20x`3D arrangment`, 2x`fonts`, 2x`arc arrangment`), thus the output data would be 00000_1.png, 00000_2.png, 00000_80.png.
 
 `note:`Mostel Dataset can be downloaded [here](https://rec.ustc.edu.cn/share/81ddc320-b05b-11ed-b4bc-5f690f426d88) (password: t6bq)
 ```
