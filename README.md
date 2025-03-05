@@ -14,7 +14,7 @@ Note that, if you failed to unzip the file, please download & unzip bg_data.zip 
 bg_data.zip can be found [here](https://huggingface.co/datasets/BigCoco/datasets/tree/main) 
 
 ## folders
-`txt_test` modify this to txt folder by mostel
+`txt_test` modify this to txt folder by mostel train-50k, download [here](https://rec.ustc.edu.cn/share/81ddc320-b05b-11ed-b4bc-5f690f426d88) (password: t6bq)
 
 
 `fonts` 70 fonts included
