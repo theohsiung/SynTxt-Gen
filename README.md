@@ -1,6 +1,14 @@
 # SynTxt-Gen
 synthetic data generation for text with 3d information
 
+## Setting up
+Dataset Installation (Background images)
+
+```python
+git clone https://huggingface.co/datasets/BigCoco/datasets
+unzip datasets/bg_data.zip -d datasets/     # remember to add datasets/bg_data to your .gitignore
+```
+
 ## folders
 `txt_test` modify this to txt folder by mostel
 
