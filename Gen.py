@@ -9,6 +9,7 @@ from wand.image import Image
 from wand.font import Font
 from wand.drawing import Drawing
 from wand.color import Color
+from utils.put_bg import put_bg
 from tqdm import tqdm
 from utils.Image_transformer import ImageTransformer
 from utils.PYR_2_RGB import PYR_2_RGB
@@ -185,12 +186,17 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img",FONT_DIR="./fon
                         rgb = PYR_2_RGB(angles.get("theta", 0), angles.get("phi", 0), angles.get("gamma", 0))
                         r_src_3d_mask = r_src_mask
                         r_tgt_3d_mask = r_tgt_mask
+                        # background & text color rendering
+                        bg, i_s, t_f = put_bg(image1 = r_src_mask, image2 = r_tgt_mask, bg_dir = "./datasets/bg_data/bg_img")
+                        cv2.imwrite(f'./{DATA_DIR}/i_s/{file_name}_{index}.png', i_s)
+                        cv2.imwrite(f'./{DATA_DIR}/t_f/{file_name}_{index}.png', t_f)
+                        cv2.imwrite(f'./{DATA_DIR}/t_b/{file_name}_{index}.png', bg)
                         cv2.imwrite(f'./{DATA_DIR}/mask_s/{file_name}_{index}.png', r_src_mask)
                         cv2.imwrite(f'./{DATA_DIR}/mask_t/{file_name}_{index}.png', r_tgt_mask)
                         # rgb = rgb.astype(np.int16) # for phi, theta, gamma alignment
                         # rgb[1] = rgb[1] * (-1)
-                        replace_white_with_color(r_src_3d_mask, rgb)
-                        replace_white_with_color(r_tgt_3d_mask, rgb)
+                        r_src_3d_mask = replace_white_with_color(r_src_3d_mask, rgb)
+                        r_tgt_3d_mask = replace_white_with_color(r_tgt_3d_mask, rgb)
                         cv2.imwrite(f'./{DATA_DIR}/mask_3d_s/{file_name}_{index}.png', r_src_3d_mask)
                         cv2.imwrite(f'./{DATA_DIR}/mask_3d_t/{file_name}_{index}.png', r_tgt_3d_mask)
                 os.remove(temp_s_path)
