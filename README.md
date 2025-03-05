@@ -8,7 +8,10 @@ Dataset Installation (Background images)
 git clone https://huggingface.co/datasets/BigCoco/datasets
 unzip datasets/bg_data.zip -d datasets/     # remember to add datasets/bg_data to your .gitignore
 ```
-Note that if you failed to unzip the file, please download & unzip bg_data.zip manully. bg_data.zip can be found [here](https://huggingface.co/datasets/BigCoco/datasets/tree/main) 
+Note that, if you failed to unzip the file, please download & unzip bg_data.zip manully.
+
+
+bg_data.zip can be found [here](https://huggingface.co/datasets/BigCoco/datasets/tree/main) 
 
 ## folders
 `txt_test` modify this to txt folder by mostel
