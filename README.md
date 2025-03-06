@@ -3,15 +3,24 @@ synthetic data generation for text with 3d information
 
 ## Setting up
 Dataset Installation (Background images)
-
+### Step 1
 ```python
 git clone https://huggingface.co/datasets/BigCoco/datasets
 unzip datasets/bg_data.zip -d datasets/     # remember to add datasets/bg_data to your .gitignore
 ```
+
 Note that, if you failed to unzip the file, please download & unzip bg_data.zip manully.
 
 
 bg_data.zip can be found [here](https://huggingface.co/datasets/BigCoco/datasets/tree/main) 
+
+### Step 2
+Run the code below to fix the sRGB problem for the background image
+
+```python
+python utils/fix_bg_img.py
+```
+
 
 ## folders
 `txt_test` modify this to txt folder by mostel train-50k, download [here](https://rec.ustc.edu.cn/share/81ddc320-b05b-11ed-b4bc-5f690f426d88) (password: t6bq)
