@@ -36,6 +36,7 @@ python utils/fix_bg_img.py
 | --- | --- | --- |
 | `--text_dir` | dir for text editing pair from mostel | txt_test |
 | `--data_dir` | Data folder name | SynTxt3D_50K_1 |
+| `--file_range` | range for train pair desired to generate in mostel | [25000, 50000] |
 
 ## Output Data structure
 The output data should be as follow. Be aware that we augmented the synthetic dataset by Mostel, thus for every pair in train-50k we generate 80 different conditions (20 `3D arrangment`, 2 `fonts`, 2 `arc arrangment`), thus the output data would be 00000_1.png, 00000_2.png, 00000_80.png.
@@ -94,3 +95,9 @@ SynTxt-Gen/SynTxt3D_50k_1
 - txt: record every styled text a & b
 
 - i_t.txt: a list of all imgs and it's styled text b (tgt)
+
+## Generate Data
+```python
+python Gen.py --text_dir txt_text --file_range [0, 24999]
+```
+
