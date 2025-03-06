@@ -3,7 +3,10 @@ synthetic data generation for text with 3d information.
 
 3D info are represent by normal vector and transfer to rgb as shown below
 
-![image](SphericalCircle.png) 
+<p align="center">
+  <img src="Sphere.png" alt="normal map" width="300">
+</p>
+
 
 ## Setting up
 Dataset Installation (Background images)
