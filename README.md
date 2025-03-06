@@ -57,10 +57,15 @@ SynTxt-Gen/SynTxt3D_50k_1
 |    ├── 00000_1.png
 |    ├── 00000_2.png
 |    └── ......
-└── t_f 
-     ├── 00000_1.png
-     ├── 00000_2.png
-     └── ......
+├── t_f 
+|    ├── 00000_1.png
+|    ├── 00000_2.png
+|    └── ......
+├── txt
+|    ├── 00000_1.txt
+|    ├── 00000_2.txt
+|    └── ......
+└── i_t.txt
 ```
 
 - i_s: styled text a (src) rendering on background image
@@ -76,3 +81,7 @@ SynTxt-Gen/SynTxt3D_50k_1
 - t_b: background image w/o any txt rendering
 
 - t_f: styled text b (tgt) rendering on background image
+
+- txt: record every styled text a & b
+
+- i_t.txt: a list of all imgs and it's styled text b (tgt)
