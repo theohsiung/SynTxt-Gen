@@ -1,5 +1,9 @@
 # SynTxt-Gen
-synthetic data generation for text with 3d information
+synthetic data generation for text with 3d information.
+
+3D info are represent by normal vector and transfer to rgb as shown below
+
+![image](SphericalCircle.png) 
 
 ## Setting up
 Dataset Installation (Background images)
