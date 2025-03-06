@@ -4,8 +4,8 @@ import cv2
 """ Utility Functions """
 
 def load_image(img_path, shape=None):
-    img = cv2.imread(img_path)
-    # img = img_path
+    # img = cv2.imread(img_path)
+    img = img_path
     if shape is not None:
         img = cv2.resize(img, shape)
     

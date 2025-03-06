@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 from typing import Tuple
-
+import time
 """
 > Usage:
     from utils.put_bg import put_bg
@@ -26,8 +26,11 @@ def pick_bg(bg_dir: str = "./datasets/bg_data/bg_img") -> np.ndarray:
     if not os.path.exists(bg_path):
         raise FileNotFoundError(f"背景圖片 {bg_name} 不存在於 {bg_dir} 中")
     bg = cv2.imread(bg_path)
-    if bg is None:
-        raise ValueError(f"無法讀取背景圖片：{bg_path}")
+    time.sleep(0.01)
+    while bg is None:
+        bg_name = np.random.choice(os.listdir(bg_dir))
+        bg_path = os.path.join(bg_dir, bg_name)
+        bg = cv2.imread(bg_path)
     return bg
 
 
