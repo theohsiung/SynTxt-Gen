@@ -12,7 +12,7 @@ from wand.color import Color
 from utils.put_bg import put_bg
 from tqdm import tqdm
 from utils.Image_transformer import ImageTransformer
-from utils.PYR_2_RGB import PYR_2_RGB
+from utils.spherical_2_rgb import spherical2RGB
 import argparse
 
 def get_font_paths(directory):
@@ -105,6 +105,7 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img",FONT_DIR="./fon
     os.makedirs(os.path.join(DATA_DIR, "mask_3d_t"), exist_ok=True)
     os.makedirs(os.path.join(DATA_DIR, "t_b"), exist_ok=True)
     os.makedirs(os.path.join(DATA_DIR, "t_f"), exist_ok=True)
+    os.makedirs(os.path.join(DATA_DIR, "txt"), exist_ok=True)
     TEMP_DIR = "temp_images"
     os.makedirs(TEMP_DIR, exist_ok=True)
 
@@ -183,7 +184,7 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img",FONT_DIR="./fon
                         tgt_mask = ImageTransformer(temp_t_path, (w, h))
                         r_src_mask = src_mask.rotate_along_axis(phi=angles.get("phi", 0), theta=angles.get("theta", 0), gamma=angles.get("gamma", 0), dx=5)
                         r_tgt_mask = tgt_mask.rotate_along_axis(phi=angles.get("phi", 0), theta=angles.get("theta", 0), gamma=angles.get("gamma", 0), dx=5) 
-                        rgb = PYR_2_RGB(angles.get("theta", 0), angles.get("phi", 0), angles.get("gamma", 0))
+                        _, bgr = spherical2RGB(theta=angles.get("theta", 0), phi=angles.get("phi", 0))
                         r_src_3d_mask = r_src_mask
                         r_tgt_3d_mask = r_tgt_mask
                         # background & text color rendering
@@ -193,12 +194,14 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img",FONT_DIR="./fon
                         cv2.imwrite(f'./{DATA_DIR}/t_b/{file_name}_{index}.png', bg)
                         cv2.imwrite(f'./{DATA_DIR}/mask_s/{file_name}_{index}.png', r_src_mask)
                         cv2.imwrite(f'./{DATA_DIR}/mask_t/{file_name}_{index}.png', r_tgt_mask)
-                        # rgb = rgb.astype(np.int16) # for phi, theta, gamma alignment
-                        # rgb[1] = rgb[1] * (-1)
-                        r_src_3d_mask = replace_white_with_color(r_src_3d_mask, rgb)
-                        r_tgt_3d_mask = replace_white_with_color(r_tgt_3d_mask, rgb)
+                        r_src_3d_mask = replace_white_with_color(r_src_3d_mask, bgr)
+                        r_tgt_3d_mask = replace_white_with_color(r_tgt_3d_mask, bgr)
                         cv2.imwrite(f'./{DATA_DIR}/mask_3d_s/{file_name}_{index}.png', r_src_3d_mask)
                         cv2.imwrite(f'./{DATA_DIR}/mask_3d_t/{file_name}_{index}.png', r_tgt_3d_mask)
+                        with open(f"./{DATA_DIR}/txt/{file_name}_{index}.txt", "w", encoding="utf-8") as f:
+                            f.write(f"{text[0]} {text[1]}")
+                        with open(f"./{DATA_DIR}/i_t.txt", "a", encoding="utf-8") as f:
+                            f.write(f"{file_name}_{index}.png {text[1]}\n")
                 os.remove(temp_s_path)
                 os.remove(temp_t_path)
         os.rmdir(TEMP_DIR)
