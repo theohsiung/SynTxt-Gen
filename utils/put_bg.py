@@ -17,6 +17,42 @@ import time
     - result2: cv2.imread    t_f
 """
 
+def pick_random_color_not_in_bg(bg, max_tries=1000, default_color=(0, 0, 0)):
+    """
+    從輸入的背景圖片 bg 中，取得不在該背景中出現過的隨機顏色 (R, G, B)。
+    若在指定次數 max_tries 內無法找到不重複顏色，則回傳 default_color。
+
+    參數:
+    - bg: 以 OpenCV 方式讀入的背景圖片 (BGR 格式)，shape 為 (height, width, 3)。
+    - max_tries: 隨機生成顏色並檢查的最大嘗試次數。
+    - default_color: 如果無法找到不重複顏色時，使用的預設顏色 (R, G, B)。
+    
+    回傳:
+    - random_color: shape 為 (1, 1, 3) 的 numpy array，不包含於原背景的顏色 (R, G, B)。
+    """
+
+    # 將背景圖攤平為 (height*width, 3)，找出所有獨特 (R, G, B)
+    unique_bg_colors = np.unique(bg.reshape(-1, bg.shape[2]), axis=0)
+    unique_bg_colors_set = set(tuple(color) for color in unique_bg_colors)
+    
+    random_color = None
+    
+    for _ in range(max_tries):
+        # 產生候選顏色 (R, G, B)
+        color_candidate = np.random.randint(0, 256, size=3, dtype=np.uint8)
+        # 檢查是否存在於背景顏色集合內
+        if tuple(color_candidate) not in unique_bg_colors_set:
+            # 若不存在，就使用這個顏色並結束迴圈
+            random_color = color_candidate.reshape((1, 1, 3))
+            break
+    
+    # 若超過 max_tries 還未找到不重複顏色，回傳預設顏色
+    if random_color is None:
+        # print("警告: 背景幾乎包含所有顏色，已使用預設顏色。")
+        random_color = np.array([[[default_color[0], default_color[1], default_color[2]]]], dtype=np.uint8)
+    
+    return random_color
+
 def pick_bg(bg_dir: str = "./datasets/bg_data/bg_img") -> np.ndarray:
     """
     隨機挑選指定資料夾內的背景圖片
@@ -67,7 +103,8 @@ def put_bg(image1: np.ndarray, image2: np.ndarray, bg_dir: str) -> Tuple[np.ndar
     bg = pick_bg(bg_dir=bg_dir)
     bg = cv2.resize(bg, (img1.shape[1], img1.shape[0]))
     # 生成隨機顏色 (R, G, B)
-    random_color = np.random.randint(0, 256, size=(1, 1, 3), dtype=np.uint8)
+    random_color = pick_random_color_not_in_bg(bg)
+
 
     # 建立指定大小的圖片，並填充隨機顏色
     rand_color_txt = np.full((img1.shape[0], img1.shape[1], 3), random_color, dtype=np.uint8)
