@@ -1,0 +1,12 @@
+.gitignore
+datasets
+utils/tmp
+SynTxt3D_50k_2/
+SynTxt3D_50k_3/
+train-50k-2/
+train-50k-3/
+temp/
+*.pyc
+
+SynTxt3D_50k_test.zip
+requirements.txt
