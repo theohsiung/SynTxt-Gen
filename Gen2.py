@@ -238,7 +238,7 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img", FONT_DIR="./fo
     ])
     
     fonts = get_font_paths(FONT_DIR)
-    font_groups = list(chunk_list(fonts, 70))
+    font_groups = list(chunk_list(fonts, 69))
 
     for idx, text_file in tqdm(enumerate(filtered_files), total=len(filtered_files), desc="Generating data", leave=True):
         # 從 font_group 中選取一個字體（例如：第一個）

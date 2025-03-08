@@ -1,3 +1,4 @@
+.gitignore
 datasets
 utils/tmp
 SynTxt3D_50k_2/
