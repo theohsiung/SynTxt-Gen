@@ -328,8 +328,8 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img", FONT_DIR="./fo
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="生成 3D 旋轉文字圖像")
-    parser.add_argument("--text_dir", type=str, default="mostel_t1")
-    parser.add_argument("--data_dir", type=str, default="SynTxt3D_50k_ttt")
+    parser.add_argument("--text_dir", type=str, default="txt_test")
+    parser.add_argument("--data_dir", type=str, default="SynTxt3D_50k_gen2")
     parser.add_argument("--file_range", type=list, default=[0, 50000])
     args = parser.parse_args()
     
