@@ -264,8 +264,8 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img", FONT_DIR="./fo
         # 應用弧形變形
         mask_s, mask_t = apply_arc_distortion(mask_s, mask_t, arc)
 
-        mask_s.save(filename = f'./temp/{file_name}_mask_s.png')
-        mask_t.save(filename = f'./temp/{file_name}_mask_t.png')
+        # mask_s.save(filename = f'./temp/{file_name}_mask_s.png')
+        # mask_t.save(filename = f'./temp/{file_name}_mask_t.png')
         w = mask_s.width
         h = mask_s.height
 
@@ -307,17 +307,17 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img", FONT_DIR="./fo
 
         # 背景與文字渲染
         bg, i_s, t_f = put_bg(image1=r_src_mask, image2=r_tgt_mask, bg_dir="./datasets/bg_data/bg_img")
-        r_src_3d_mask = replace_white_with_color(r_src_3d_mask, bgr)
-        r_tgt_3d_mask = replace_white_with_color(r_tgt_3d_mask, bgr)
         i_s, t_f, bg, r_src_mask, r_tgt_mask, r_src_3d_mask, r_tgt_3d_mask = crop_images_to_common_bbox(i_s, t_f, bg, r_src_mask, r_tgt_mask, r_src_3d_mask, r_tgt_3d_mask, top, bottom, left, right)
-
+        
         # 為每個 text 僅輸出一組圖片
-        output_index = idx + 1
+        # output_index = idx + 1
         cv2.imwrite(f'./{DATA_DIR}/i_s/{file_name}.png', i_s)
         cv2.imwrite(f'./{DATA_DIR}/t_f/{file_name}.png', t_f)
         cv2.imwrite(f'./{DATA_DIR}/t_b/{file_name}.png', bg)
         cv2.imwrite(f'./{DATA_DIR}/mask_s/{file_name}.png', r_src_mask)
         cv2.imwrite(f'./{DATA_DIR}/mask_t/{file_name}.png', r_tgt_mask)
+        r_src_3d_mask = replace_white_with_color(r_src_3d_mask, bgr)
+        r_tgt_3d_mask = replace_white_with_color(r_tgt_3d_mask, bgr)
         cv2.imwrite(f'./{DATA_DIR}/mask_3d_s/{file_name}.png', r_src_3d_mask)
         cv2.imwrite(f'./{DATA_DIR}/mask_3d_t/{file_name}.png', r_tgt_3d_mask)
         with open(f"./{DATA_DIR}/txt/{file_name}.txt", "w", encoding="utf-8") as f:
