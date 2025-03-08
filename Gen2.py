@@ -243,7 +243,7 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img", FONT_DIR="./fo
     for idx, text_file in tqdm(enumerate(filtered_files), total=len(filtered_files), desc="Generating data", leave=True):
         # 從 font_group 中選取一個字體（例如：第一個）
         font_group = font_groups[idx % len(font_groups)]
-        font = font_group[0]
+        font = font_group[idx % len(font_group)]
         file_name = os.path.basename(text_file)[:-4]  # 去除 .txt
 
         with open(text_file, "r", encoding="utf-8") as f:
@@ -328,8 +328,8 @@ def process_text_images(TEXT_DIR="txt_text", DATA_DIR="test_img", FONT_DIR="./fo
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="生成 3D 旋轉文字圖像")
-    parser.add_argument("--text_dir", type=str, default="txt_test")
-    parser.add_argument("--data_dir", type=str, default="SynTxt3D_50k_gen2")
+    parser.add_argument("--text_dir", type=str, default="mostel_t1")
+    parser.add_argument("--data_dir", type=str, default="SynTxt3D_50k_ttt")
     parser.add_argument("--file_range", type=list, default=[0, 50000])
     args = parser.parse_args()
     
