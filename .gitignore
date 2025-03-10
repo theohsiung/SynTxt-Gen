@@ -8,10 +8,6 @@ train-50k-3/
 temp/
 txt_test/
 *.pyc
-MOSTEL/
-mostel_t1/
-mostel_t3/
+
 SynTxt3D_50k_test.zip
 requirements.txt
-SynTxt3D_50k_test/
-o_point.png

@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 from typing import Tuple
 import time
+from .pick_color import pick_random_color_not_in_bg
 """
 > Usage:
     from utils.put_bg import put_bg
@@ -16,62 +17,6 @@ import time
     - result1: cv2.imread    i_s
     - result2: cv2.imread    t_f
 """
-
-def pick_random_color_not_in_bg(
-    bg,
-    max_tries=1000,
-    distance_threshold=30,
-    default_color=(0, 0, 0)
-):
-    """
-    從輸入的背景圖片 bg 中，隨機挑選一個「不在該背景出現過」且「不接近背景任何顏色」的顏色 (B, G, R)。
-    若在 max_tries 內都找不到合適顏色，則回傳 default_color。
-
-    參數:
-    - bg: 以 OpenCV 讀入的背景圖 (BGR 格式, shape: (height, width, 3))。
-    - max_tries: 隨機生成顏色並檢查的最大嘗試次數。
-    - distance_threshold: 與背景中任一顏色的歐幾里得距離若小於這個門檻，就視為「太接近」而捨棄。
-    - default_color: 若無法找到合適顏色時，使用的預設顏色 (B, G, R)。
-    
-    回傳:
-    - random_color: shape 為 (1, 1, 3) 的 numpy array（BGR）。符合不在背景且不接近背景的隨機顏色。
-    """
-
-    # 將背景圖攤平為 (n, 3)，取得所有獨特 (B, G, R)
-    unique_bg_colors = np.unique(bg.reshape(-1, bg.shape[2]), axis=0)
-
-    # 如果背景幾乎是全色彩 (非常大量顏色)，以下步驟可能花較久時間
-    # 故設置 max_tries 作為安全機制
-    random_color = None
-
-    for _ in range(max_tries):
-        # 產生候選顏色 (B, G, R)
-        color_candidate = np.random.randint(0, 256, size=3, dtype=np.uint8)
-        
-        # 檢查是否剛好已在背景 (完全相同)
-        if any((color_candidate == c).all() for c in unique_bg_colors):
-            continue
-        
-        # 計算與背景中所有獨特顏色的距離，若皆 >= distance_threshold 才算通過
-        # 為了避免 np.uint8 計算時溢位，可先轉成較大範圍整數
-        diff = unique_bg_colors.astype(np.int16) - color_candidate.astype(np.int16)
-        distances = np.sqrt(np.sum(diff * diff, axis=1))
-        
-        min_distance = np.min(distances)
-        if min_distance >= distance_threshold:
-            # 找到一個與所有背景顏色都不接近的顏色
-            random_color = color_candidate.reshape((1, 1, 3))
-            break
-    
-    # 若超過 max_tries 仍找不到，就回傳 default_color
-    if random_color is None:
-        # print("警告: 背景中顏色非常豐富，已使用預設顏色。")
-        random_color = np.array(
-            [[[default_color[0], default_color[1], default_color[2]]]],
-            dtype=np.uint8
-        )
-    
-    return random_color
 
 def pick_bg(bg_dir: str = "./datasets/bg_data/bg_img") -> np.ndarray:
     """
@@ -123,7 +68,7 @@ def put_bg(image1: np.ndarray, image2: np.ndarray, bg_dir: str) -> Tuple[np.ndar
     bg = pick_bg(bg_dir=bg_dir)
     bg = cv2.resize(bg, (img1.shape[1], img1.shape[0]))
     # 生成隨機顏色 (R, G, B)
-    random_color = pick_random_color_not_in_bg(bg, distance_threshold=50)
+    random_color = pick_random_color_not_in_bg(bg, distance_threshold=20)
 
     # 建立指定大小的圖片，並填充隨機顏色
     rand_color_txt = np.full((img1.shape[0], img1.shape[1], 3), random_color, dtype=np.uint8)
