@@ -1,0 +1,1 @@
+endogenize hurst

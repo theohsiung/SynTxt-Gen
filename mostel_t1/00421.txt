@@ -1,0 +1,1 @@
+physes nonallelic

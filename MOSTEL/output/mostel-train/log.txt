@@ -1,0 +1,11 @@
+[2025-03-12 15:04:32]: Config path: configs/mostel-train.py
+[2025-03-12 15:08:58]: Config path: configs/mostel-train.py
+[2025-03-12 15:10:25]: Config path: configs/mostel-train.py
+[2025-03-12 15:22:42]: Config path: configs/mostel-train.py
+[2025-03-12 15:31:38]: Config path: configs/mostel-train.py
+[2025-03-12 15:37:08]: Config path: configs/mostel-train.py
+[2025-03-12 15:41:43]: Config path: configs/mostel-train.py
+[2025-03-12 16:08:16]: Config path: configs/mostel-train.py
+[2025-03-12 16:08:20]: Recognizer module loaded: models/recognizer_pretrain.pth
+[2025-03-12 16:08:20]: Model not found
+[2025-03-12 16:08:20]: Inpainting module loaded: models/erase_pretrain.pth

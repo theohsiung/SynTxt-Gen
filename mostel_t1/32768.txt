@@ -1,0 +1,1 @@
+trimode hotkeys

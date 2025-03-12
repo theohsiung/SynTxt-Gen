@@ -28,6 +28,69 @@ def spherical2RGB(theta: float, phi: float) -> np.array:
   bgr = np.array([pz,py,px], dtype=np.uint8)
   return rgb, bgr
 
+def bending_3d(input_img):
+    # 1. Read the black-background white-text PNG image (make sure the path is correct)
+    img = input_img
+    if img is None:
+        raise ValueError("Unable to read the image. Please verify the file path.")
+    h, w = img.shape[:2]
+    cx, cy = w / 2.0, h / 2.0  # center of the image
+
+    # 2. Set the radius and focal length f
+    R = w / 4.0 
+    f = R         
+
+    # 3. Create the mapping matrices
+    map_x = np.zeros((h, w), np.float32)
+    map_y = np.zeros((h, w), np.float32)
+    y_indices, x_indices = np.indices((h, w), dtype=np.float32)
+
+    x_rel = x_indices - cx  
+    y_rel = y_indices - cy  
+    phi_val = x_rel / R 
+    # Spherical coordinate conversion
+    X = R * np.sin(phi_val)
+    Z = R * np.cos(phi_val)
+    eps = 1e-6 
+    x_src = X * f / (Z + eps) + cx
+    y_src = y_rel * f / (Z + eps) + cy
+
+    map_x[:] = x_src
+    map_y[:] = y_src
+
+    # Handle coordinates out of bounds (OpenCV fills with the border value)
+    mask = (x_src < 0) | (x_src >= w) | (y_src < 0) | (y_src >= h)
+    map_x[mask] = -1
+    map_y[mask] = -1
+
+    # 4. Apply remapping transformation (for the bending effect)
+    warped = cv2.remap(img, map_x, map_y, interpolation=cv2.INTER_LINEAR,
+                       borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+
+    # 5. Color the white text on the bent image based on phi values
+    # Convert the previously calculated phi (in radians) to degrees:
+    phi_deg = phi_val * (180 / np.pi)
+
+    # Create a copy for coloring
+    colored = warped.copy()
+
+    # Identify the white text regions: assume all B, G, R values greater than 200 are white (adjust threshold as needed)
+    white_mask = (warped[:, :, 0] > 200) & (warped[:, :, 1] > 200) & (warped[:, :, 2] > 200)
+
+    # Get the indices of the white text region
+    ys, xs = np.where(white_mask)
+
+    # Iterate through these pixels and calculate a new color based on their phi value
+    for y, x in zip(ys, xs):
+        # Get the phi corresponding to this pixel (converted to degrees), here as phi2
+        current_phi = phi_deg[y, x]
+        # Here we set theta fixed to 0; you can adjust this based on y or other parameters if needed
+        _, bgr = spherical2RGB(0, current_phi)
+        colored[y, x] = bgr
+
+    # 6. Save the colored image
+    return warped, colored
+
 if __name__ == "__main__":
     # print center point
     immmg = np.zeros((100, 100, 3), dtype=np.uint8)
