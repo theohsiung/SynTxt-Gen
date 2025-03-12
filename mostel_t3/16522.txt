@@ -1,1 +1,0 @@
-stowp install

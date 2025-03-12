@@ -1,1 +1,0 @@
-semidominant allocator

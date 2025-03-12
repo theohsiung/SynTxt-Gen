@@ -1,1 +1,0 @@
-acquirability tighten
