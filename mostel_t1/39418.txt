@@ -1,1 +1,0 @@
-memristor derivation

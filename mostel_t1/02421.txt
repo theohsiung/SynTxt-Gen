@@ -1,1 +1,0 @@
-qsave autofocus

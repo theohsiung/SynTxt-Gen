@@ -1,1 +1,0 @@
-tache denormalization

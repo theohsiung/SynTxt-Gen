@@ -1,1 +1,0 @@
-osculate speedup

@@ -1,1 +1,0 @@
-astrometry pycnidiospore

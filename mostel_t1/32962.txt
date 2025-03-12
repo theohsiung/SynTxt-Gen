@@ -1,1 +1,0 @@
-prescaler skippable

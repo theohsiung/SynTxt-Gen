@@ -1,1 +1,0 @@
-subword inflector
