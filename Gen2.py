@@ -152,7 +152,7 @@ def get_angle(axis, angle_options):
     else:
         return random.choice(angle_options)
 
-def compute_common_bbox(img1, img2, threshold=200):
+def compute_common_bbox(img1, img2, threshold=150):
     """
     計算兩張圖片中白色文字的共同邊界 (top, bottom, left, right)
     參數:

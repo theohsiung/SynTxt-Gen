@@ -10,4 +10,5 @@ txt_test/
 *.pyc
 
 SynTxt3D_50k_test.zip
+SynTxt3D_50k_test/
 requirements.txt
