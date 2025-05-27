@@ -1,4 +1,7 @@
-# SynTxt-Gen
+# Syn3DTxt-Gen
+[![arXiv](https://img.shields.io/badge/arXiv-2505.18479-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2505.18479)
+
+ Here's [![Visualizer](https://img.shields.io/badge/GitHub-SynTxt--Visualizer-blue?logo=github)](https://github.com/KaiCobra/Syn3DTxt_visualizer) help u out with understanding out research or try it out online [here](https://syn3dtxt-visualizer.streamlit.app/)
 synthetic data generation for text with 3d information.
 
 3D info are represent by normal vector and transfer to rgb as shown below
@@ -108,3 +111,21 @@ SynTxt-Gen/SynTxt3D_50k_1
 python Gen.py --text_dir txt_text --file_range [0, 24999]
 ```
 
+## Citation
+If you use this data generation pipeline, plz cite:
+
+<details>
+<summary>BibTeX</summary>
+
+```bibtex
+@misc{hsiung2025syn3dtxtembedding3dcues,
+  title        = {Syn3DTxt: Embedding 3D Cues for Scene Text Generation},
+  author       = {Li-Syun Hsiung and Jun-Kai Tu and Kuan-Wu Chu and Yu-Hsuan Chiu and Yan-Tsung Peng and Sheng-Luen Chung and Gee-Sern Jison Hsu},
+  year         = {2025},
+  eprint       = {2505.18479},
+  archivePrefix= {arXiv},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2505.18479}
+}
+```
+</details>
