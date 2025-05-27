@@ -2,7 +2,9 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2505.18479-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2505.18479)
 
  Here's [![Visualizer](https://img.shields.io/badge/GitHub-SynTxt--Visualizer-blue?logo=github)](https://github.com/KaiCobra/Syn3DTxt_visualizer) help u out with understanding our research or try it out online [here](https://syn3dtxt-visualizer.streamlit.app/)
-synthetic data generation for text with 3d information.
+
+## Syn3DTxt: Embedding 3D Cues for Scene Text Generation
+A synthetic data generation pipeline for text with 3d information.
 
 3D info are represent by normal vector and transfer to rgb as shown below
 
@@ -110,6 +112,12 @@ SynTxt-Gen/SynTxt3D_50k_1
 ```python
 python Gen.py --text_dir txt_text --file_range [0, 24999]
 ```
+
+## Many Thanks to:
+
+Many thanks to these great projects:
+
+> [lksshw/SRNet](https://github.com/lksshw/SRNet), [youdao-ai/SRNet-Datagen](https://github.com/youdao-ai/SRNet-Datagen), [qqqyd/MOSTEL](https://github.com/qqqyd/MOSTEL), [UCSB-NLP-Chang/DiffSTE](https://github.com/UCSB-NLP-Chang/DiffSTE), [ZYM-PKU/UDiffText](https://github.com/ZYM-PKU/UDiffText), [TencentARC/MasaCtrl](https://github.com/TencentARC/MasaCtrl), [unilm/textdiffuser](https://github.com/unilm/textdiffuser), [tyxsspa/AnyText](https://github.com/tyxsspa/AnyText)
 
 ## Citation
 If you use this data generation pipeline, plz cite:
