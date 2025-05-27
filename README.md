@@ -117,7 +117,7 @@ python Gen.py --text_dir txt_text --file_range [0, 24999]
 
 Many thanks to these great projects:
 
-> [lksshw/SRNet](https://github.com/lksshw/SRNet), [youdao-ai/SRNet-Datagen](https://github.com/youdao-ai/SRNet-Datagen), [qqqyd/MOSTEL](https://github.com/qqqyd/MOSTEL), [UCSB-NLP-Chang/DiffSTE](https://github.com/UCSB-NLP-Chang/DiffSTE), [ZYM-PKU/UDiffText](https://github.com/ZYM-PKU/UDiffText), [TencentARC/MasaCtrl](https://github.com/TencentARC/MasaCtrl), [unilm/textdiffuser](https://github.com/unilm/textdiffuser), [tyxsspa/AnyText](https://github.com/tyxsspa/AnyText)
+> [lksshw/SRNet](https://github.com/lksshw/SRNet), [youdao-ai/SRNet-Datagen](https://github.com/youdao-ai/SRNet-Datagen), [qqqyd/MOSTEL](https://github.com/qqqyd/MOSTEL), [weichaozeng/TextCtrl](https://github.com/weichaozeng/TextCtrl)
 
 ## Citation
 If you use this data generation pipeline, plz cite:
