@@ -1,7 +1,7 @@
 # Syn3DTxt-Gen
 [![arXiv](https://img.shields.io/badge/arXiv-2505.18479-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2505.18479)
 
- Here's [![Visualizer](https://img.shields.io/badge/GitHub-SynTxt--Visualizer-blue?logo=github)](https://github.com/KaiCobra/Syn3DTxt_visualizer) help u out with understanding out research or try it out online [here](https://syn3dtxt-visualizer.streamlit.app/)
+ Here's [![Visualizer](https://img.shields.io/badge/GitHub-SynTxt--Visualizer-blue?logo=github)](https://github.com/KaiCobra/Syn3DTxt_visualizer) help u out with understanding our research or try it out online [here](https://syn3dtxt-visualizer.streamlit.app/)
 synthetic data generation for text with 3d information.
 
 3D info are represent by normal vector and transfer to rgb as shown below
